@@ -32,7 +32,7 @@ public class TodoService {
         Todo findTodo = findVerifiedTodo(todo.getTodoId());
         Optional.ofNullable(todo.getTitle()).ifPresent(title -> findTodo.setTitle(title));
         Optional.ofNullable(todo.getOrders()).ifPresent(orders -> findTodo.setOrders(orders));
-        // Updater boolean 작성하기
+        // boolean은 어떻게?
 
         return todoRepository.save(findTodo);
     }
