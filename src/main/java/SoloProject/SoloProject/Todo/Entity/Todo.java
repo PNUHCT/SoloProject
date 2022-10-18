@@ -6,7 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.net.URI;
 
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -25,15 +27,11 @@ public class Todo {
     @Column(nullable = false)
     private boolean completed;
 
+    @Column
+    private URI uri;
+
     public Todo(int id) {
         this.id = id;
-    }
-
-    public Todo(int id, String title, int orders, boolean completed) {
-        this.id = id;
-        this.title = title;
-        this.orders = orders;
-        this.completed = completed;
     }
 
     // todo 상태

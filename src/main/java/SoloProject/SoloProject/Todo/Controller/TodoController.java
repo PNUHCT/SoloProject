@@ -20,7 +20,7 @@ import java.util.List;
 
 @CrossOrigin
 @Validated
-@RequestMapping("/v2/todo")
+@RequestMapping("/v3/todo")
 @RestController
 @Slf4j
 public class TodoController {

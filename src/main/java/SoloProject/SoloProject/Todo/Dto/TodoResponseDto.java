@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.net.URI;
+
 
 @AllArgsConstructor
 @Builder
@@ -13,4 +15,5 @@ public class TodoResponseDto {
     private String title;
     private int orders;
     private boolean completed;
+    private URI uri;
 }

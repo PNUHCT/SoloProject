@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.net.URI;
 import java.util.Optional;
 
 @Service
@@ -22,17 +23,18 @@ public class TodoService {
     }
 
     public Todo createTodo(Todo todo) {
-        // 비즈니스 로직작성 구간
-
+        // 비즈니스 로직작성 구간 : uri 자동 추가해주는 구간
+        todo.setUri(URI.create("http://localhost:8080/"));
         return todoRepository.save(todo);
     }
 
     public Todo updateTodo(Todo todo) {
-        // 비즈니스 로직작성 구간
+        // 비즈니스 로직작성 구간 : 전에 저장한 것에 이번에 받은거로 덮어줘 라는 뜻
         Todo findTodo = findVerifiedTodo(todo.getId());
         Optional.ofNullable(todo.getTitle()).ifPresent(title -> findTodo.setTitle(title));
         Optional.ofNullable(todo.getOrders()).ifPresent(orders -> findTodo.setOrders(orders));
-        // boolean은 어떻게?
+        Optional.ofNullable(todo.isCompleted()).ifPresent(completed -> findTodo.setCompleted(completed));
+        Optional.ofNullable(todo.getUri()).ifPresent(uri -> findTodo.setUri(uri));
 
         return todoRepository.save(findTodo);
     }
