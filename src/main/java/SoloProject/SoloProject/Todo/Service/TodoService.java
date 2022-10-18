@@ -14,7 +14,7 @@ import java.net.URI;
 import java.util.Optional;
 
 @Service
-//@RequiredArgsConstructor
+//@RequiredArgsConstructor맞나난ㄴ
 public class TodoService {
     private TodoRepository todoRepository;
 
