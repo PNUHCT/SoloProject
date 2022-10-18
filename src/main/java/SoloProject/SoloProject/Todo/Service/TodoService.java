@@ -45,7 +45,7 @@ public class TodoService {
 
     public Page<Todo> findTodoList(int page, int size) {
         // 비즈니스 로직작성 구간
-        return todoRepository.findAll(PageRequest.of(page, size, Sort.by("todoId").descending()));
+        return todoRepository.findAll(PageRequest.of(page, size, Sort.by("id").descending()));
     }
 
     public void deleteTodo(int id) {
