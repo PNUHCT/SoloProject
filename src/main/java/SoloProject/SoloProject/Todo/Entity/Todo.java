@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Todo {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Long todoId;
+    private int id;
 
     @Column(length = 100, nullable = false)
     private String title;
@@ -25,12 +25,12 @@ public class Todo {
     @Column(nullable = false)
     private boolean completed;
 
-    public Todo(Long todoId) {
-        this.todoId = todoId;
+    public Todo(int id) {
+        this.id = id;
     }
 
-    public Todo(Long todoId, String title, int orders, boolean completed) {
-        this.todoId = todoId;
+    public Todo(int id, String title, int orders, boolean completed) {
+        this.id = id;
         this.title = title;
         this.orders = orders;
         this.completed = completed;

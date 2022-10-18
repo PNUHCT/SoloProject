@@ -9,7 +9,7 @@ import lombok.Getter;
 @Builder
 @Getter
 public class TodoResponseDto {
-    private Long todoId;
+    private int id;
     private String title;
     private int orders;
     private boolean completed;

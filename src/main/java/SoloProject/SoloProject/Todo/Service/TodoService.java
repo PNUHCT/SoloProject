@@ -29,7 +29,7 @@ public class TodoService {
 
     public Todo updateTodo(Todo todo) {
         // 비즈니스 로직작성 구간
-        Todo findTodo = findVerifiedTodo(todo.getTodoId());
+        Todo findTodo = findVerifiedTodo(todo.getId());
         Optional.ofNullable(todo.getTitle()).ifPresent(title -> findTodo.setTitle(title));
         Optional.ofNullable(todo.getOrders()).ifPresent(orders -> findTodo.setOrders(orders));
         // boolean은 어떻게?
@@ -37,8 +37,8 @@ public class TodoService {
         return todoRepository.save(findTodo);
     }
 
-    public Todo findTodo(Long todoId) {
-        return findVerifiedTodo(todoId);
+    public Todo findTodo(int id) {
+        return findVerifiedTodo(id);
     }
 
     public Page<Todo> findTodoList(int page, int size) {
@@ -46,9 +46,9 @@ public class TodoService {
         return todoRepository.findAll(PageRequest.of(page, size, Sort.by("todoId").descending()));
     }
 
-    public void deleteTodo(Long todoId) {
+    public void deleteTodo(int id) {
         // 비즈니스 로직작성 구간
-        Todo todo = findVerifiedTodo(todoId);
+        Todo todo = findVerifiedTodo(id);
         todoRepository.delete(todo);
     }
 
@@ -59,8 +59,8 @@ public class TodoService {
 
     // private 메서드----------------
 
-    private Todo findVerifiedTodo(Long todoId) {
-        Optional<Todo> optionalTodo = todoRepository.findById(todoId);
+    private Todo findVerifiedTodo(int id) {
+        Optional<Todo> optionalTodo = todoRepository.findById(id);
         Todo findTodo = optionalTodo
                 .orElseThrow(()->new BusinessLogicException(ExceptionCode.TODO_NOT_FOUND));
         return findTodo;

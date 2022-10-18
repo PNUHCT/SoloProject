@@ -7,9 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Optional;
 
 public interface TodoRepository extends JpaRepository<Todo, Long> {
-    @Override
-    Optional<Todo> findById(Long todoId);
+//    @Override
+    Optional<Todo> findById(int id);
 
-    @Query(value = "SELECT c FROM Todo c WHERE c.todoId = :todoId")
-    Optional<Todo> findByTodo(Long todoId);
+    @Query(value = "SELECT c FROM Todo c WHERE c.id = :id")
+    Optional<Todo> findByTodo(int id);
 }

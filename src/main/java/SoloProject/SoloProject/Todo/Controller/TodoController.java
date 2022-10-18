@@ -11,12 +11,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
-@RequestMapping("/v1/todo")
+@CrossOrigin
+@Validated
+@RequestMapping("/v2/todo")
 @RestController
 @Slf4j
 public class TodoController {
@@ -30,21 +34,21 @@ public class TodoController {
 
 
     @PostMapping
-    public ResponseEntity postTodo(@RequestBody TodoPostDto todoPostDto) {
+    public ResponseEntity postTodo(@Valid @RequestBody TodoPostDto todoPostDto) {
         Todo todo = todoService.createTodo(mapper.todoPostDtoToTodo(todoPostDto));
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.todoToTodoResponseDto(todo)), HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{todo-id}")
-    public ResponseEntity patchTodo(@PathVariable("todo-id") @Positive Long todoId, @RequestBody TodoPatchDto todoPatchDto) {
-        todoPatchDto.setTodoId(todoId);
+    @PatchMapping("/{id}")
+    public ResponseEntity patchTodo(@PathVariable("id") @Positive int id, @Valid @RequestBody TodoPatchDto todoPatchDto) {
+        todoPatchDto.setId(id);
         Todo todo = todoService.updateTodo(mapper.todoPatchDtoToTodo(todoPatchDto));
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.todoToTodoResponseDto(todo)), HttpStatus.OK);
     }
 
-    @GetMapping("/{todo-id}")
-    public ResponseEntity getTodo(@PathVariable("todo-id") Long todoId) {
-        Todo todo = todoService.findTodo(todoId);
+    @GetMapping("/{id}")
+    public ResponseEntity getTodo(@PathVariable("id") int id) {
+        Todo todo = todoService.findTodo(id);
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.todoToTodoResponseDto(todo)), HttpStatus.OK);
     }
 
@@ -55,9 +59,9 @@ public class TodoController {
         return new ResponseEntity<>(new MultiResponseDto<>(mapper.todoToTodoResponseDtos(todoList), pageTodoList), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{todo-id}")
-    public ResponseEntity deleteTodo(@PathVariable("todo-id") Long todoId) {
-        todoService.deleteTodo(todoId);
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteTodo(@PathVariable("id") int id) {
+        todoService.deleteTodo(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
